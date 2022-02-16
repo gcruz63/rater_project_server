@@ -5,13 +5,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from raterapi.models import Gamer
+from raterapp.models import Player
 
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
-    '''Handles the authentication of a gamer
+    '''Handles the authentication of a player
 
     Method arguments:
       request -- The full HTTP request object
@@ -40,7 +40,7 @@ def login_user(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
-    '''Handles the creation of a new gamer for authentication
+    '''Handles the creation of a new player for authentication
 
     Method arguments:
       request -- The full HTTP request object
@@ -55,14 +55,14 @@ def register_user(request):
         last_name=request.data['last_name']
     )
 
-    # Now save the extra info in the raterapi_gamer table
-    gamer = Gamer.objects.create(
+    # Now save the extra info in the raterapp_player table
+    player = Player.objects.create(
         bio=request.data['bio'],
         user=new_user
     )
 
     # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(user=gamer.user)
+    token = Token.objects.create(user=player.user)
     # Return the token to the client
     data = {'token': token.key}
     return Response(data)

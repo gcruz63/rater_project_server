@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-from raterapi.views import register_user, login_user
+from raterapp.views import register_user, login_user
 
 urlpatterns = [
     # Requests to http://localhost:8000/register will be routed to the register_user function
